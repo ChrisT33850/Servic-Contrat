@@ -1,0 +1,34 @@
+flowchart TD
+
+A[Customer contacts Customer Service] --> B[Check Warranty Status]
+
+B -->|Under Warranty| C[Schedule On-site Intervention]
+B -->|Out of Warranty| D[Daorung Creates Estimate]
+
+D --> D1["Estimate Includes:<br/>• Spare Parts<br/>W090800022<br/>W0902465<br/>W1256489<br/>• Transportation Fees<br/>• Labor Costs"]
+
+D1 --> E["Customer Accepts Estimate<br/>(No Payment Required at This Stage)"]
+
+E --> F[Acteon Technician Goes On Site]
+
+C --> F
+
+F --> G[Repair Performed]
+
+G --> H{Free of Charge?}
+
+H -->|Yes| I[Technician Leaves Service Memo]
+I --> J[Customer Signs Service Memo]
+J --> K[Signed Service Memo Collected]
+
+H -->|No| L["Technician Lists Actual Spare Parts Used<br/>(e.g. W090800022)"]
+L --> M[Customer Signs Service Memo]
+M --> K
+
+K --> N[Technician Returns to Company with Signed Service Memo]
+
+N --> O[Daorung Creates Invoice in WinSpeed]
+
+O --> P[Invoice Number Added to Service Memo]
+
+P --> Q[Process Complete]

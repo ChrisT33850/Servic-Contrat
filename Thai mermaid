@@ -1,34 +1,42 @@
+```mermaid
 flowchart TD
 
-A[Customer contacts Customer Service] --> B[Check Warranty Status]
+A[Customer Contacts Customer Service] --> B{Warranty Valid?}
 
-B -->|Under Warranty| C[Schedule On-site Intervention]
-B -->|Out of Warranty| D[Daorung Creates Estimate]
+B -->|Yes| C[Schedule On-Site Intervention]
 
-D --> D1["Estimate Includes:<br/>• Spare Parts<br/>W090800022<br/>W0902465<br/>W1256489<br/>• Transportation Fees<br/>• Labor Costs"]
+B -->|No| D[Daorung Creates Estimate]
+D --> E[Estimate Includes:<br/>Spare Parts<br/>Transportation<br/>Labor]
+E --> F[Customer Approves Estimate<br/>No Payment Required]
 
-D1 --> E["Customer Accepts Estimate<br/>(No Payment Required at This Stage)"]
+C --> G[Acteon Technician Goes On Site]
+F --> G
 
-E --> F[Acteon Technician Goes On Site]
+G --> H[Repair Performed]
 
-C --> F
+H --> I{Free of Charge?}
 
-F --> G[Repair Performed]
+I -->|Yes| J[Leave Service Memo]
+J --> K[Customer Signs Service Memo]
+K --> N[Collect Signed Service Memo]
 
-G --> H{Free of Charge?}
-
-H -->|Yes| I[Technician Leaves Service Memo]
-I --> J[Customer Signs Service Memo]
-J --> K[Signed Service Memo Collected]
-
-H -->|No| L["Technician Lists Actual Spare Parts Used<br/>(e.g. W090800022)"]
-L --> M[Customer Signs Service Memo]
+I -->|No| L[Record Actual Spare Parts Used]
+L --> M[Example: W090800022]
 M --> K
 
-K --> N[Technician Returns to Company with Signed Service Memo]
+N --> O[Technician Returns to Company]
 
-N --> O[Daorung Creates Invoice in WinSpeed]
+O --> P[Create Invoice in WinSpeed]
 
-O --> P[Invoice Number Added to Service Memo]
+P --> Q[Add Invoice Number to Service Memo]
 
-P --> Q[Process Complete]
+Q --> R[Close Service Request]
+
+classDef warranty fill:#d5f5d5,stroke:#2e7d32,color:#000;
+classDef estimate fill:#fff3cd,stroke:#ff9800,color:#000;
+classDef invoice fill:#d6eaf8,stroke:#3498db,color:#000;
+
+class C warranty;
+class D,E,F estimate;
+class P,Q invoice;
+```
